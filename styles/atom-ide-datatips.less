@@ -1,66 +1,43 @@
 @import "ui-variables";
 @import "syntax-variables";
 
-.datatip-element {
-  background: @app-background-color;
-  box-shadow: 0px 1px 4px 0px rgba(0,0,0,1);
-  color: @syntax-text-color;
-  font-size: 1rem; // some themes set font sizes on the root node
-  margin-top: -2px; // Compensate for shadow
-  position: relative;
-  white-space: normal;
-  pointer-events: all;
-  max-height: 480px;
-  max-width: 64em;
-  overflow: none;
-
-  p {
-    margin-left: 8px;
-    margin-right: 8px;
-
-    &:last-child { margin-bottom: 8px; }
-  }
-}
-
-.datatip-overlay {
+.datatip {
+  display: block;
   z-index: 12 !important; // HACK: exceed the z-index of
                           // .atom-dock-resize-handle-resizable, so that
                           // mouseleaves aren't triggered when the cursor enters
                           // the resizable
-}
 
-.datatip-container {
-  background-color: @syntax-background-color;
-  display: flex;
+  background: @app-background-color;
+  box-shadow: 0px 1px 4px 0px rgba(0,0,0,1);
   position: relative;
   max-height: 480px;
-  max-width: 64em;
-  transition: background-color 0.15s ease;
-  padding: 8px;
-  white-space: pre-wrap;
+  max-width: 640px;
+  overflow: none;
+}
+
+.datatip-htmlview {
+  color: @syntax-text-color;
   font-family: var(--editor-font-family);
   font-size: var(--editor-font-size);
-  &:hover {
-    background-color: mix(@syntax-background-color, @syntax-selection-color, 50%);
+  max-height: 480px;
+  max-width: 64em;
+  overflow: auto;
+  white-space: normal;
+
+  // Avoid excess internal padding from markdown blocks.
+  :first-child {
+    margin-top: 0;
   }
 
-  &:not(:last-of-type) {
-    border-bottom: 1px solid fade(@syntax-cursor-color, 10%);
+  :last-child {
+    margin-bottom: 0;
   }
-}
 
-.datatip-content {
-  flex-grow: 1;
-
-  // Allow higher-level component to override the cursor property on certain children.
-  .list-tree {
-    cursor: inherit;
-  }
-}
-
-.datatip-marked-text-editor {
-  flex-grow: 1;
-  .cursors {
-    display: none;
+  pre {
+    font-family: var(--editor-font-family);
+    font-size: var(--editor-font-size);
+    margin-bottom: 8px;
+    border-radius: 0;
   }
 }
